@@ -17,6 +17,7 @@ public class GetMethodEx03 extends HttpServlet{
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/json");
 		
+		// 테스트용 주석추가
 		
 		// request parameter
 		String userId = request.getParameter("user_id");
