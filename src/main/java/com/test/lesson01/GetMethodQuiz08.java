@@ -29,7 +29,7 @@ public class GetMethodQuiz08 extends HttpServlet {
 		        "집에 가는 길에 동네 맛집 가서 안주 사갑니다.",
 		        "자축 저 오늘 생일 이에요."));
 		
-		String search = request.getParameter("search");
+		String keyword = request.getParameter("search");
 		
 		// 탐색 출력
 		PrintWriter out = response.getWriter();
@@ -38,11 +38,25 @@ public class GetMethodQuiz08 extends HttpServlet {
 		while(iter.hasNext()) {
 			String line = iter.next();
 //			System.out.println(line);
-			if(line.contains(search)) {
-				out.print(line + "<br>");
-			}
+			if(line.contains(keyword)) {
+				// 1) 
+//				line = line.replace(keyword, "<b>" + keyword + "</b>");
+//				out.print(line + "<br>");
+				
+//				// 2)
+//				String[] words =  line.split(keyword);
+//				out.print(words[0] + "<b>" + keyword + "</b>" + words[1] + "<br>");
+				
+				// 3) 
+//				line.indexOf(keyword); 맨 처음 변환점을 찾고 그후 앞에다 붙힌다. (<b>), 만일 변경이 되었다면, 추가적으로 붙인 단어들 수와 그 후 최종적으로 끝날 곳에다가 </b> 를 추가한다.
+				
 		}
 		out.print("</body></html>");
+		
+		}	
+		
+		
+		
 //		out.println("<html><head><title>주문 결과</title></head><body>");
 //		
 //		for (int i = 0; i < list.size(); i++) {
