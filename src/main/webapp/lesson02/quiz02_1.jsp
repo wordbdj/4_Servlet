@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,7 +13,26 @@
 </head>
 <body>
 	<div class="container">
-	<h1>현재 시간은 14시 51분 02초 입니다.</h1>
+	
+<% 
+	String type = request.getParameter("type");
+	SimpleDateFormat sdf = new SimpleDateFormat();
+
+	
+	Date now = new Date();
+	String value = "";
+	
+	if ((type.equals("time"))) {
+		sdf = new SimpleDateFormat("HH시 mm분 ss초");	
+		value = "시간";
+	} else{
+		sdf = new SimpleDateFormat("yyyy년 MM월 dd일");	
+		value = "날짜";
+	}
+	
+%>
+	
+	<h1>현재 <%= value %>는 <%= sdf.format(now) %> 입니다.</h1>
 	</div>
 </body>
 </html>
