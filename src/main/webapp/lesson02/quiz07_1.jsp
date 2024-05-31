@@ -54,12 +54,16 @@
 				<tbody>
 				<%
 					for (Map<String, Object> item : list) {
+						Double foodPoint = Double.valueOf(item.get("point").toString());
+							out.print(foodPoint + "<br>");
+						
 							
 						if(item.get("menu").equals(menu) == false) {
 							continue;
-						} else if (starFilter == "true" && (double)item.get("point") >= 4.0) {	
+						} else if (starFilter.equals("true") && foodPoint <= 4.0) {	
 							continue;
 						} else {
+						
 				%>
 					<tr>
 						<th><%= item.get("menu") %></th>						
