@@ -1,3 +1,4 @@
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,32 +11,40 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </head>
 <body>
-
-
 	<%
 		int length = Integer.parseInt(request.getParameter("length"));
-		String[] unitArr = request.getParameterValues("unit");
+	
+		// 여러값 파라미터 한번에 받아오기
+		String[] types = request.getParameterValues("type");
 		
-		
-		
-		if (unit != null) {
-			for(String value : unit) {
-				if(value.equals("inch")) {
-					out.print
-				} else if (value.equals("yard")){
-					out.print((double)length * 0.0109361 + "yard");
-				} else if (value.equals("feet")) {
-					out.print(double)length * 0.393701 + "in");
-				} else if (value.equals("meter")) {
-					out.print(double)length * 0.393701 + "in");
+	%>
+	<div class="container">
+		<h1>길이 변환</h1>
+		<h3><%= length %>cm</h3>
+		<hr>
+		<h2>
+	<% 
+
+		if (types != null) {
+			for (String type : types) {
+				if(type.equals("inch") == true) {
+					double inch = length*0.393701;
+					out.print("<b>"  +inch +  "in</b><br>"); 
+				} else if (type.equals("yard")== true){
+					double yard = length*0.010936133333333;
+					out.print("<b>" + yard + "yd</b><br>"); 
+				} else if (type.equals("feet")== true) {
+					double feet = length*0.0328084;
+					out.print("<b>" + feet + "ft</b><br>"); 
+				} else if (type.equals("meter")== true) {
+					double meter = length*0.01;
+					out.print("<b>" + meter + "m</b><br>"); 
 				}
 			}
 		}
 		
 	%>
-	
-	<div class="container">
-		<h1>길이 변환</h1>
+	</h2>
 		
 	</div>
 </body>
