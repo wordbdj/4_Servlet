@@ -60,7 +60,7 @@
 							
 						if(item.get("menu").equals(menu) == false) {
 							continue;
-						} else if (starFilter.equals("true") && foodPoint <= 4.0) {	
+						} else if (starFiled.equals("true") && foodPoint <= 4.0) {	
 							continue;
 						} else {
 						
