@@ -49,17 +49,19 @@
 						<th>메뉴</th>
 						<th>상호</th>
 						<th>별점</th>
-						</tr>
+					</tr>
 				</thead>
 				<tbody>
 				<%
 					for (Map<String, Object> item : list) {
 						Double foodPoint = Double.valueOf(item.get("point").toString());
+						boolean exclude = starFilter != null;
 						
 							
 						if(item.get("menu").equals(menu) == false) {
+							// skip 조건이 체크되어 있고 스킵 되어야 할때 skip(continue)
 							continue;
-						} else if (starFilter != null && foodPoint <= 4.0) {	
+						} else if (exclude && foodPoint <= 4.0) {	// 4점 이하 제외 	체크됨:"true" 체크안됨:nulls
 							continue;
 						} else {
 						
