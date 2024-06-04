@@ -10,7 +10,9 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 <style>
-
+.link {color: black; font-weight:bold}
+#input {width:500px}
+.musicinfo{color: gray; padding-right:50px}
 
 </style>
 </head>
@@ -94,64 +96,99 @@
 	    musicInfo.put("lyricist", "아이유");
 	    musicList.add(musicInfo);
 	%>
-	<div id="wrap" class="mx-5">
-		<header class="d-flex m-5 align-items-center">
-			<h3 class="text-success">Melong</h3>
-			<div class="mx-5 d-flex">
-				<input type="text" class="form-control col-8">
-				<button class="btn btn-info">검색</button>
+	
+	<%
+		//Map<String, Object>  target = null;
+		//int id = Integer.valueOf(request.getParameter("id"));
+	
+		int info = 0; 
+		if (request.getParameter("id") == null) {
+			info = 0;
+		} else if (request.getParameter("id") != null) {
+			info = Integer.parseInt(request.getParameter("id"));
+		}
+		String musicTitle = "";
+				if (request.getParameter("title") == null) {
+					musicTitle = "";
+				} else if (request.getParameter("title") != null) {
+					musicTitle = request.getParameter("title");
+				}		
+		boolean exclude1 = request.getParameter("title") != null;
+		boolean exclude2 = request.getParameter("id") != null;
+		
+		
+	%>
+		<%
+				for(Map<String, Object> music : musicList) {
+					if (info > 0 || exclude1 == true) {
+						if(info == ((int)music.get("id")) || musicTitle.equals(music.get("title"))){
+							
+		%>
+	<div class="container">
+		<header class="d-flex align-items-center mx-2">
+			<div class="col-2">
+				<h3 class="text-success">Melong</h3>
+			</div>
+			<div class="d-flex input-group col-10">
+				<form action="/lesson02/quiz10_info.jsp" method="get" class="d-flex">
+					<div class="input-group mb-3">
+						  	<input type="text" class="form-control col-8" name="title" value="<%= musicTitle%>">
+						  <div class="input-group-append">
+						    	<button class="btn btn-info" type="submit" >검색</button>
+						  </div>
+					</div>
+				</form>
 			</div>
 		</header>
 		<nav>
 			<nav class="d-flex align-items-center">
-				<ul class="nav nav-fill bg-danger">
-                    <li class="nav-item"><a href="#" class="nav-link text-white">전체</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white">지상파</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white">드라마</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white">예능</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white">영화</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link text-white">스포츠</a></li>
-                </ul>
+				<ul class="nav nav-fill">
+                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold link">멜롱차트</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold link">최신음악</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold link">장르음악</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold link">멜롱DJ</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link font-weight-bold link">뮤직어워드</a></li>
+               </ul>
 			</nav>
 		</nav>
-		<section class="border border-success">
-			<div class="m-4 d-flex">
-				<img alt="사진" src="<%=artistInfo.get("photo") %>" width="200">
-				<div class="mx-4">
-					<h3><%=artistInfo.get("name") %></h3>
-					<h4><%=artistInfo.get("agency") %></h4>
-					<h4><%=artistInfo.get("debute") %> 데뷔</h4>
+		<section class="contents">
+			<div class="d-flex border border-success p-3">
+				<div class="mr-4">
+					<img alt="사진" src="<%=music.get("thumbnail") %>" width="150">
+				</div>
+				<div>
+					<div class="display-4"><%=music.get("title") %></div>
+					<span class="text-success font-weight-bold"><b><%=music.get("singer") %></b></span><br>
+				<div class="d-flex text-secondary">
+					<div>
+						<div>앨범</div>
+						<div>재생시간</div>
+						<div>작곡가</div>
+						<div>작사가</div>
+					</div>
+					<div class="ml-4">
+						<div>
+							<div><%=music.get("album") %></div>
+							<div><%=(int)music.get("time")/60 %> : <%=(int)music.get("time")%60 %></div>
+							<div><%=music.get("composer") %></div>
+							<div><%=music.get("lyricist") %></div>
+						</div>
+					</div>
+				</div>
 				</div>
 			</div>
+		<%
+						}
+					}
+			}
+		%>
 		</section>
 	
 		<div class="mt-4">
-		<h2>곡 목록</h2>
-			<table class="table text-center">
-				<thead>
-					<tr>
-						<th>no</th>
-						<th>제목</th>
-						<th>앨범</th>
-					</tr>
-				</thead>
-				<tbody>
-		<%
-				for(Map<String, Object> music : musicList) {
-				
-			
-		%>
-					<tr>
-						<td><%= music.get("id")%></td>
-						<td><%= music.get("title")%></td>
-						<td><%= music.get("album")%></td>
-					</tr>
-		<%
-			
-			}
-		%>
-				</tbody>
-			</table>
+		<h2>곡 가사</h2>
+		<hr>
+		<div class="mb-5"><b>가사 정보 없음</b></div>
+		<hr>
 		</div>
 		<footer>
 			<small>Copyright 2021. marondal All Rights Reserved.</small>
