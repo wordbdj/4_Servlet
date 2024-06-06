@@ -30,7 +30,7 @@ public class Lesson03Ex01Servlet extends HttpServlet {
 		
 		//insert query - db 
 		String insertQuery = "insert into `used_goods`"
-				+ "(`sellerId`, `title`, `discription`, `price`)"
+				+ "(`sellerId`, `title`, `description`, `price`)"
 				+ "values"
 				+ "(1, '고양이 간식 팝니다', '입맛이 까다로워서 잘안먹어요ㅠ', 2000)";
 		try {
@@ -49,7 +49,7 @@ public class Lesson03Ex01Servlet extends HttpServlet {
 			out.println(res.getInt("id"));	
 			out.println(res.getString("title"));
 			out.println(res.getInt("price"));
-			out.println(res.getString("discription"));
+			out.println(res.getString("description"));
 			
 			}
 		} catch (SQLException e) {
